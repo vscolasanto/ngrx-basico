@@ -8,13 +8,11 @@ import { Person } from './models/person.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  people$: Observable<Person[]>
+  people$: Observable<Person[]>;
 
-  addNewPerson() {
+  addNewPerson() { }
 
-  }
+  update(person: Person) { }
 
-  update(person: Person) {}
-
-  delete(person: Person) {}
+  delete(person: Person) { }
 }

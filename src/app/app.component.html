@@ -1,11 +1,11 @@
-<div fxLayout="column" fxLayoutAlign="start center">
-  <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="70">
-    <app-person *ngFor="let person of people$ | async"
-      [person]="person"
-      delete="$event"
-      update="$event"
-    ></app-person>
+<div class="container">
+  <div class="heading">
+    <h1 class="mb-0">Click on button to add random person</h1>
+    <button mat-flat-button color="primary" (click)="addNewPerson()">Add Person</button>
   </div>
-
-  <button mat-flat-button color="primary" class="add-person" (click)="addNewPerson()">Add Person</button>
+  <app-person
+    [people]="people"
+    (delete)="delete($event)"
+    (update)="update($event)"
+  ></app-person>
 </div>

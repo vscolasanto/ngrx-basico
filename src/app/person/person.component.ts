@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Person } from '../models/person.model';
 
 @Component({
@@ -7,11 +9,32 @@ import { Person } from '../models/person.model';
 })
 export class PersonComponent implements OnInit {
 
-  @Input() person: Person;
   @Output() update: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() delete: EventEmitter<Person> = new EventEmitter<Person>();
+
+  @Input() set people(value:Person[]) {
+    this.dataSource = new MatTableDataSource<Person>(value)
+    this.dataSource.paginator = this.paginator;
+  };
+  dataSource: MatTableDataSource<Person> ;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  displayedColumns: string[] = [
+    'name',
+    'age',
+    'address',
+    'city',
+    'country',
+    'actions'
+  ]
 
   constructor() { }
 
   ngOnInit(): void { }
+
+  captalizeWord(s: string): string {
+    const first = s.charAt(0).toUpperCase();
+    return `${first}${s.substr(1)}`
+  }
 }

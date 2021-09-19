@@ -1,5 +1,13 @@
-.add-person {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
+.container {
+  padding: 50px 100px;
+
+  .heading {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+
+    h1 {
+      margin-bottom: 0;
+    }
+  }
 }

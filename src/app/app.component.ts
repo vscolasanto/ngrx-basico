@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { select, Store } from '@ngrx/store';
-import { AppState } from './store';
+import { Store } from '@ngrx/store';
+import { AppState, selectPeople, selectPeopleCount } from './store';
 
 import { Person } from './models/person.model';
 import * as faker from 'faker';
@@ -24,10 +24,14 @@ export class AppComponent implements OnInit {
   }
 
   getPeople() {
+    // this.store.pipe(select('people')).subscribe(p => {
+    //   this.people = p;
+    // });
+
     this.store.dispatch(new PersonAll());
-    this.store.pipe(select('people')).subscribe(p => {
-      this.people = p;
-    });
+    this.store.select(selectPeople).subscribe(p => this.people = p);
+
+    // this.store.select(selectPeopleCount).subscribe(p => console.log(p));
   }
 
   addNewPerson() {

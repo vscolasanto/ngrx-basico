@@ -14,12 +14,19 @@ export function reducer(state = initialState, action: fromPersonActions.PersonAc
   switch(action.type) {
     case fromPersonActions.PersonActionTypes.PERSON_ALL:
       return state;
+
     case fromPersonActions.PersonActionTypes.PERSON_NEW:
-      return state;
+      return state.concat([ action.payload.person ]);
+
     case fromPersonActions.PersonActionTypes.PERSON_UPDATE:
-      return state;
+      let people = state.slice();
+      let i = people.findIndex(p => p._id === action.payload.person._id);
+      if (i >= 0) people[i] = action.payload.person;
+      return people;
+
     case fromPersonActions.PersonActionTypes.PERSON_DELETE:
-      return state;
+      return state.filter(p => p._id !== action.payload.id);
+
     default:
       return state;
   }

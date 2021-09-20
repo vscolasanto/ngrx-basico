@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { AppState, selectPeople, selectPeopleCount } from './store';
+import { AppState } from './store';
 
 import { Person } from './models/person.model';
 import * as faker from 'faker';
+import * as fromPersonSelectors from './store/person.selectors';
 import { PersonAll, PersonDelete, PersonNew, PersonUpdate } from './store/person.actions';
 
 @Component({
@@ -29,9 +30,8 @@ export class AppComponent implements OnInit {
     // });
 
     this.store.dispatch(new PersonAll());
-    this.store.select(selectPeople).subscribe(p => this.people = p);
-
-    // this.store.select(selectPeopleCount).subscribe(p => console.log(p));
+    this.store.select(fromPersonSelectors.selectAll)
+      .subscribe(p => this.people = p);
   }
 
   addNewPerson() {
@@ -48,17 +48,15 @@ export class AppComponent implements OnInit {
   }
 
   update(person: Person) {
-    const p = {
-      person: Object.assign({}, person, {
-        name: faker.name.findName(),
-        age: Math.round(Math.random() * 100),
-        address: faker.address.streetAddress(),
-        city: faker.address.city(),
-        country: faker.address.country(),
-      })
-    };
+    const p = Object.assign({}, person, {
+      name: faker.name.findName(),
+      age: Math.round(Math.random() * 100),
+      address: faker.address.streetAddress(),
+      city: faker.address.city(),
+      country: faker.address.country(),
+    });
 
-    this.store.dispatch(new PersonUpdate(p));
+    this.store.dispatch(new PersonUpdate({ id: person._id, changes: p }));
   }
 
   delete(person: Person) {

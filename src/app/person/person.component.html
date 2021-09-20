@@ -2,7 +2,7 @@
   <table mat-table [dataSource]="dataSource" style="width: 100%;">
 
     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef> {{captalizeWord(column)}} </th>
+      <th mat-header-cell *matHeaderCellDef> {{capitalize(column)}} </th>
       <td mat-cell *matCellDef="let person">
         {{person[column]}}
 

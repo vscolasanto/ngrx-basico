@@ -11,16 +11,20 @@ import { Person } from "../models/person.model";
 import * as fromPersonReducer from "./person.reducer";
 
 export interface AppState {
-  people: Person[];
+  people: fromPersonReducer.PeopleState;
 }
 
 export const appReducers: ActionReducerMap<AppState, any> = {
   people: fromPersonReducer.reducer
 }
 
+/**
+ * SELETORES UTILIZADOS SEM ENTITYADAPTER
+ */
 export const selectPeople = (state: AppState) => state.people;
 
 export const selectPeopleCount = createSelector(
   selectPeople,
-  (people) => people.length
+  (people) => people.entities.length
 )
+

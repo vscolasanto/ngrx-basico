@@ -33,7 +33,7 @@ export class PersonComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  captalizeWord(s: string): string {
+  capitalize(s: string): string {
     const first = s.charAt(0).toUpperCase();
     return `${first}${s.substr(1)}`
   }
